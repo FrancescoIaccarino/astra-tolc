@@ -397,23 +397,14 @@ const timerCol = (s,t) => s/t>0.5?"#4ade80":s/t>0.25?"#fbbf24":"#f87171";
 // ══════════════════════════════════════════════════════════════
 
 function AstraLogo({ size = "md" }) {
-  const s = size === "lg" ? { star:36, text:28, sub:12 } : { star:22, text:18, sub:10 };
+  const h = size === "lg" ? 52 : 34;
   return (
     <div style={{display:"flex",alignItems:"center",gap:10}}>
-      <svg width={s.star} height={s.star} viewBox="0 0 24 24" fill="none">
-        <path d="M12 2L14.2 8.8H21.4L15.6 12.8L17.8 19.6L12 15.6L6.2 19.6L8.4 12.8L2.6 8.8H9.8L12 2Z" fill="#2563eb"/>
-        <path d="M12 2L14.2 8.8H21.4L15.6 12.8L17.8 19.6L12 15.6L6.2 19.6L8.4 12.8L2.6 8.8H9.8L12 2Z" fill="url(#astraGrad)" opacity=".7"/>
-        <defs>
-          <linearGradient id="astraGrad" x1="2.6" y1="2" x2="21.4" y2="19.6" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#60a5fa"/>
-            <stop offset="100%" stopColor="#2563eb"/>
-          </linearGradient>
-        </defs>
-      </svg>
-      <div>
-        <div style={{fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:800,fontSize:s.text,letterSpacing:"3px",textTransform:"uppercase",color:"#eef2ff",lineHeight:1}}>ASTRA</div>
-        <div style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:s.sub,color:"#4a5d7a",letterSpacing:"1px",lineHeight:1.2,marginTop:1}}>per aspera, ad astra</div>
-      </div>
+      <img
+        src="/astra-logo-full-light.png"
+        alt="ASTRA Network"
+        style={{height:h,width:"auto",objectFit:"contain"}}
+      />
     </div>
   );
 }
@@ -576,7 +567,11 @@ export default function App() {
       </nav>
 
       {/* HERO */}
-      <div style={{textAlign:"center",padding:"80px 24px 64px",maxWidth:760,margin:"0 auto"}}>
+      <div style={{position:"relative",overflow:"hidden"}}>
+        {/* Blurred campus background */}
+        <div style={{position:"absolute",inset:"-40px",backgroundImage:"url(/bocconi-campus.jpg)",backgroundSize:"cover",backgroundPosition:"center",filter:"blur(40px) brightness(0.25)",opacity:0.6,zIndex:0}} />
+        <div style={{position:"absolute",inset:0,background:"linear-gradient(180deg, rgba(6,9,26,0.5) 0%, rgba(6,9,26,0.95) 100%)",zIndex:0}} />
+      <div style={{position:"relative",zIndex:1,textAlign:"center",padding:"80px 24px 64px",maxWidth:760,margin:"0 auto"}}>
         <SectionLabel>Associazione Studentesca · Bocconi</SectionLabel>
         <h1 className="fade-up" style={{fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:800,fontSize:"clamp(36px,6vw,60px)",lineHeight:1.08,letterSpacing:"-1.5px",color:"var(--white)",margin:"0 0 12px"}}>
           Preparati ai Test{" "}
@@ -591,7 +586,7 @@ export default function App() {
           ))}
         </div>
       </div>
-
+      </div>
       {/* TABS */}
       <div style={{display:"flex",justifyContent:"center",gap:4,marginBottom:40,padding:"0 16px",flexWrap:"wrap"}}>
         {[["tolc","I TOLC"],["orientamento","Orientamento"],["risorse","Risorse"],["guida","Guida Pratica"]].map(([id,label])=>(
