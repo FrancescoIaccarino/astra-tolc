@@ -396,32 +396,29 @@ const timerCol = (s,t) => s/t>0.5?"#4ade80":s/t>0.25?"#fbbf24":"#f87171";
 //  COMPONENTS
 // ══════════════════════════════════════════════════════════════
 
-function AstraLogo({ size = "md" }) {
+function AstraLogo({ size = "md", variant = "light" }) {
   const h = size === "lg" ? 52 : 34;
+  const src = variant === "dark" ? "/A logo Blue transparent.png" : "/WoB.png";
   return (
     <div style={{display:"flex",alignItems:"center",gap:10}}>
-      <img
-        src="/WoB.png"
-        alt="ASTRA Network"
-        style={{height:h,width:"auto",objectFit:"contain"}}
-      />
+      <img src={src} alt="ASTRA Network" style={{height:h,width:"auto",objectFit:"contain"}} />
     </div>
   );
 }
 
-function Badge({ children, color="#2563eb" }) {
+function Badge({ children, color="var(--astra-blue)" }) {
   return (
-    <span style={{background:`${color}18`,border:`1px solid ${color}35`,borderRadius:6,padding:"3px 10px",fontSize:11,fontWeight:700,color,letterSpacing:".5px",textTransform:"uppercase"}}>
+    <span className="astra-badge" style={{background:`rgba(0,46,122,0.1)`,color:"var(--astra-blue)",border:`1px solid rgba(0,46,122,0.15)`}}>
       {children}
     </span>
   );
 }
 
-function SectionLabel({ children }) {
+function SectionLabel({ children, dark = false }) {
   return (
-    <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:8}}>
-      <div style={{width:28,height:1,background:"rgba(37,99,235,.4)"}}/>
-      <span style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:13,color:"var(--blue-l)",letterSpacing:"1px"}}>{children}</span>
+    <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:12}}>
+      <div style={{width:28,height:2,background: dark ? "rgba(255,255,255,0.4)" : "var(--astra-blue)"}}/>
+      <span style={{fontSize:13,fontWeight:600,color: dark ? "rgba(255,255,255,0.8)" : "var(--astra-blue)",letterSpacing:"1px",textTransform:"uppercase"}}>{children}</span>
     </div>
   );
 }
@@ -552,40 +549,40 @@ export default function App() {
     <div style={{minHeight:"100vh",position:"relative",zIndex:1}}>
 
       {/* NAV */}
-      <nav style={nav}>
-        <AstraLogo />
+      <nav style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"16px 24px",background:"var(--bg-nav)",backdropFilter:"blur(12px)",borderBottom:"1px solid var(--border-light)",position:"sticky",top:0,zIndex:50}}>
+        <AstraLogo variant="dark" />
         <div style={{flex:1}}/>
         <Badge>TOLC Prep 2025</Badge>
         {stats.length>0 && (
-          <div style={{display:"flex",gap:6}}>
+          <div style={{display:"flex",gap:6,marginLeft:12}}>
             {stats.slice(-3).map((s,i)=>{
-              const c=s.score>=20?"#4ade80":s.score>=12?"#fbbf24":"#f87171";
-              return <span key={i} style={{fontSize:12,color:c,fontWeight:700}}>{s.score}pt</span>;
+              const c=s.score>=20?"#10b981":s.score>=12?"#f59e0b":"#ef4444";
+              return <span key={i} style={{fontSize:13,color:c,fontWeight:700}}>{s.score}pt</span>;
             })}
           </div>
         )}
       </nav>
 
       {/* HERO */}
-      <div style={{position:"relative",overflow:"hidden"}}>
+      <div style={{position:"relative",overflow:"hidden",background:"var(--astra-blue-da)"}}>
         {/* Blurred campus background */}
-        <div style={{position:"absolute",inset:"-40px",backgroundImage:"url('/1633603541.png')",backgroundSize:"cover",backgroundPosition:"center",filter:"blur(40px) brightness(0.25)",opacity:0.6,zIndex:0}} />
-        <div style={{position:"absolute",inset:0,background:"linear-gradient(180deg, rgba(6,9,26,0.5) 0%, rgba(6,9,26,0.95) 100%)",zIndex:0}} />
-      <div style={{position:"relative",zIndex:1,textAlign:"center",padding:"80px 24px 64px",maxWidth:760,margin:"0 auto"}}>
-        <SectionLabel>Associazione Studentesca · Bocconi</SectionLabel>
-        <h1 className="fade-up" style={{fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:800,fontSize:"clamp(36px,6vw,60px)",lineHeight:1.08,letterSpacing:"-1.5px",color:"var(--white)",margin:"0 0 12px"}}>
-          Preparati ai Test{" "}
-          <span style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontWeight:600,color:"var(--blue-l)"}}>TOLC</span>
-        </h1>
-        <p className="fade-up2" style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:20,color:"var(--gray)",margin:"0 0 32px",letterSpacing:".5px"}}>
-          Quiz AI · Flashcard · Mappe di Studio · Risorse Curate
-        </p>
-        <div className="fade-up3" style={{display:"flex",justifyContent:"center",flexWrap:"wrap",gap:8}}>
-          {["🎯 Quiz AI simulate","⏱ Timer TOLC reale","🃏 Flashcard animate","🗺 Mappe argomenti","📊 Score con analisi","🔗 Risorse curate","🧭 Orientamento universitario","📋 Guida pratica CISIA"].map(f=>(
-            <span key={f} style={{background:"rgba(37,99,235,.08)",border:"1px solid rgba(37,99,235,.18)",borderRadius:20,padding:"5px 14px",fontSize:12,color:"var(--gray)",fontWeight:500}}>{f}</span>
-          ))}
+        <div style={{position:"absolute",inset:"-40px",backgroundImage:"url('/1633603541.png')",backgroundSize:"cover",backgroundPosition:"center",filter:"blur(30px) brightness(0.4)",opacity:0.8,zIndex:0}} />
+        <div style={{position:"absolute",inset:0,background:"linear-gradient(180deg, rgba(0,28,74,0.4) 0%, rgba(0,46,122,0.85) 100%)",zIndex:0}} />
+        
+        <div style={{position:"relative",zIndex:1,textAlign:"center",padding:"100px 24px 80px",maxWidth:800,margin:"0 auto"}}>
+          <SectionLabel dark={true}>Associazione Studentesca · Bocconi</SectionLabel>
+          <h1 className="fade-up" style={{fontWeight:800,fontSize:"clamp(40px,7vw,68px)",lineHeight:1.1,letterSpacing:"-1.5px",color:"#ffffff",margin:"0 0 16px"}}>
+            Preparati ai Test <span style={{color:"var(--astra-gold)"}}>TOLC</span>
+          </h1>
+          <p className="fade-up2" style={{fontSize:22,color:"rgba(255,255,255,0.85)",margin:"0 0 40px",fontWeight:400,lineHeight:1.4}}>
+            Quiz AI, Flashcard mirate, Mappe di Studio e Risorse ufficiali curate <br/>dai migliori studenti ASTRA per garantirti il massimo risultato.
+          </p>
+          <div className="fade-up3" style={{display:"flex",justifyContent:"center",flexWrap:"wrap",gap:10}}>
+            {["🎯 Simulazioni AI","⏱ Timer Realistico","🃏 Flashcard Animate","🗺 Mappe Astute","📊 Analisi Score","🔗 Siti Ufficiali"].map(f=>(
+              <span key={f} style={{background:"rgba(255,255,255,0.1)",border:"1px solid rgba(255,255,255,0.2)",borderRadius:100,padding:"8px 16px",fontSize:13,color:"#fff",fontWeight:500,boxShadow:"0 2px 4px rgba(0,0,0,0.1)"}}>{f}</span>
+            ))}
+          </div>
         </div>
-      </div>
       </div>
       {/* TABS */}
       <div style={{display:"flex",justifyContent:"center",gap:4,marginBottom:40,padding:"0 16px",flexWrap:"wrap"}}>
@@ -598,23 +595,21 @@ export default function App() {
       {homeTab==="tolc" && (
         <div style={{maxWidth:980,margin:"0 auto",padding:"0 20px 80px"}}>
           <SectionLabel>Scegli il tuo test — {Object.keys(TOLCS).length} TOLC disponibili</SectionLabel>
-          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(268px,1fr))",gap:14,marginTop:18}}>
+          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(268px,1fr))",gap:16,marginTop:20}}>
             {Object.values(TOLCS).map((t,i)=>(
-              <button key={t.id} className="tolc-card btn-astra" onClick={()=>pickTolc(t.id)}
-                style={{...card(),padding:"24px 22px",cursor:"pointer",color:"var(--white)",textAlign:"left",display:"flex",flexDirection:"column",gap:12,animationDelay:`${i*.05}s`}}
-                onMouseEnter={e=>{e.currentTarget.style.borderColor=`${t.color}45`;e.currentTarget.style.boxShadow=`0 0 0 1px ${t.color}25, 0 16px 40px ${t.glow}`;}}
-                onMouseLeave={e=>{e.currentTarget.style.borderColor="var(--border)";e.currentTarget.style.boxShadow="none";}}>
+              <button key={t.id} className="astra-card astra-card-hoverable" onClick={()=>pickTolc(t.id)}
+                style={{padding:"24px 22px",cursor:"pointer",color:"var(--text-primary)",textAlign:"left",display:"flex",flexDirection:"column",gap:12,border:"none",animationDelay:`${i*.05}s`}}>
                 <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start"}}>
                   <span style={{fontSize:36}}>{t.emoji}</span>
                   <Badge color={t.color}>{t.key}</Badge>
                 </div>
                 <div>
-                  <div style={{fontWeight:800,fontSize:17,color:"var(--white)",marginBottom:4}}>{t.subject}</div>
-                  <div style={{fontSize:11,color:"var(--muted)",lineHeight:1.5}}>{t.facolta.slice(0,3).join(" · ")}</div>
+                  <div style={{fontWeight:700,fontSize:18,color:"var(--astra-blue)",marginBottom:4}}>{t.subject}</div>
+                  <div style={{fontSize:12,color:"var(--text-secondary)",lineHeight:1.5,fontWeight:500}}>{t.facolta.slice(0,3).join(" · ")}</div>
                 </div>
-                <div style={{fontSize:11,color:"var(--muted)",paddingTop:12,borderTop:"1px solid var(--border)",lineHeight:1.6}}>{t.desc}</div>
+                <div style={{fontSize:13,color:"var(--text-muted)",paddingTop:14,borderTop:"1px solid var(--border-light)",lineHeight:1.6}}>{t.desc}</div>
                 <div style={{display:"flex",alignItems:"center",gap:6,marginTop:"auto"}}>
-                  <span style={{fontSize:11,color:t.color,fontWeight:600}}>Inizia →</span>
+                  <span style={{fontSize:13,color:"var(--astra-blue)",fontWeight:600}}>Inizia →</span>
                 </div>
               </button>
             ))}
@@ -626,24 +621,24 @@ export default function App() {
       {homeTab==="orientamento" && (
         <div style={{maxWidth:860,margin:"0 auto",padding:"0 20px 80px"}}>
           <SectionLabel>Trova il tuo percorso</SectionLabel>
-          <h2 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:32,fontWeight:600,margin:"8px 0 28px",color:"var(--white)"}}>Non sai ancora cosa fare?</h2>
-          <div style={{display:"flex",flexDirection:"column",gap:14}}>
+          <h2 style={{fontSize:32,fontWeight:700,margin:"8px 0 28px",color:"var(--astra-blue)",letterSpacing:"-0.5px"}}>Non sai ancora cosa fare?</h2>
+          <div style={{display:"flex",flexDirection:"column",gap:16}}>
             {ORI_CARDS.map((c,i)=>(
-              <div key={i} style={{...card(),padding:"22px 24px"}}>
-                <div style={{display:"flex",gap:16,alignItems:"flex-start"}}>
-                  <span style={{fontSize:34,flexShrink:0}}>{c.icon}</span>
+              <div key={i} className="astra-card" style={{padding:"24px"}}>
+                <div style={{display:"flex",gap:20,alignItems:"flex-start"}}>
+                  <span style={{fontSize:36,flexShrink:0,background:"var(--bg-subtle)",padding:12,borderRadius:12}}>{c.icon}</span>
                   <div style={{flex:1}}>
-                    <p style={{fontWeight:700,fontSize:16,color:"var(--white)",margin:"0 0 6px",lineHeight:1.4}}>{c.title}</p>
-                    <p style={{fontSize:12,color:"var(--muted)",margin:"0 0 12px"}}>{c.facolta}</p>
-                    <div style={{display:"flex",flexWrap:"wrap",gap:6,marginBottom:10}}>
+                    <p style={{fontWeight:700,fontSize:18,color:"var(--text-primary)",margin:"0 0 6px",lineHeight:1.4}}>{c.title}</p>
+                    <p style={{fontSize:13,color:"var(--text-secondary)",margin:"0 0 16px",fontWeight:500}}>{c.facolta}</p>
+                    <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:12}}>
                       {c.tolcs.map(t=>(
-                        <button key={t} className="btn-astra" onClick={()=>pickTolc(t)}
-                          style={{background:`${c.color}12`,border:`1px solid ${c.color}30`,borderRadius:8,padding:"5px 14px",cursor:"pointer",color:c.color,fontSize:12,fontWeight:700}}>
-                          {TOLCS[t]?.key} →
+                        <button key={t} className="btn-secondary" onClick={()=>pickTolc(t)}
+                          style={{padding:"6px 16px",fontSize:13,display:"flex",alignItems:"center",gap:4}}>
+                          <span style={{color:c.color}}>●</span> {TOLCS[t]?.key}
                         </button>
                       ))}
                     </div>
-                    <p style={{margin:0,fontSize:12,color:"var(--gray)",fontStyle:"italic",lineHeight:1.6}}>💡 {c.tip}</p>
+                    <p style={{margin:0,fontSize:13,color:"var(--text-muted)",fontStyle:"italic",lineHeight:1.6,background:"var(--bg-subtle)",padding:"10px 14px",borderRadius:8}}>💡 {c.tip}</p>
                   </div>
                 </div>
               </div>
@@ -656,17 +651,17 @@ export default function App() {
       {homeTab==="risorse" && (
         <div style={{maxWidth:920,margin:"0 auto",padding:"0 20px 80px"}}>
           <SectionLabel>Piattaforme di preparazione</SectionLabel>
-          <h2 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:32,fontWeight:600,margin:"8px 0 28px",color:"var(--white)"}}>Risorse curate per la preparazione</h2>
-          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(285px,1fr))",gap:12}}>
+          <h2 style={{fontSize:32,fontWeight:700,margin:"8px 0 28px",color:"var(--astra-blue)",letterSpacing:"-0.5px"}}>Risorse curate per la preparazione</h2>
+          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(285px,1fr))",gap:16}}>
             {RISORSE_GENERALI.map((r,i)=>(
-              <a key={i} className="link-card" href={r.url} target="_blank" rel="noopener noreferrer"
-                style={{...card(),padding:"20px",textDecoration:"none",color:"var(--white)",display:"block"}}>
-                <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:10}}>
+              <a key={i} className="astra-card astra-card-hoverable" href={r.url} target="_blank" rel="noopener noreferrer"
+                style={{padding:"24px",textDecoration:"none",color:"var(--text-primary)",display:"block"}}>
+                <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:12}}>
                   <Badge color={r.color}>{r.tag}</Badge>
-                  <span style={{fontSize:12,color:"var(--muted)"}}>↗</span>
+                  <span style={{fontSize:14,color:"var(--text-muted)",fontWeight:600}}>↗</span>
                 </div>
-                <div style={{fontWeight:700,fontSize:15,marginBottom:7}}>{r.name}</div>
-                <div style={{fontSize:12,color:"var(--gray)",lineHeight:1.7}}>{r.desc}</div>
+                <div style={{fontWeight:700,fontSize:16,marginBottom:8,color:"var(--astra-blue)"}}>{r.name}</div>
+                <div style={{fontSize:13,color:"var(--text-secondary)",lineHeight:1.6}}>{r.desc}</div>
               </a>
             ))}
           </div>
@@ -677,47 +672,47 @@ export default function App() {
       {homeTab==="guida" && (
         <div style={{maxWidth:780,margin:"0 auto",padding:"0 20px 80px"}}>
           <SectionLabel>Dalla registrazione al voto</SectionLabel>
-          <h2 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:32,fontWeight:600,margin:"8px 0 28px",color:"var(--white)"}}>Guida Pratica al TOLC</h2>
-          <div style={{display:"flex",flexDirection:"column",gap:14}}>
+          <h2 style={{fontSize:32,fontWeight:700,margin:"8px 0 28px",color:"var(--astra-blue)",letterSpacing:"-0.5px"}}>Guida Pratica al TOLC</h2>
+          <div style={{display:"flex",flexDirection:"column",gap:16}}>
             {GUIDA_STEPS.map((s,i)=>(
-              <div key={i} style={{...card(),overflow:"hidden"}}>
-                <div style={{display:"flex",alignItems:"center",gap:14,padding:"18px 22px",borderBottom:"1px solid var(--border)"}}>
-                  <div style={{background:`${s.color}14`,border:`1px solid ${s.color}30`,borderRadius:12,width:44,height:44,display:"flex",alignItems:"center",justifyContent:"center",fontSize:20,flexShrink:0}}>{s.icon}</div>
+              <div key={i} className="astra-card" style={{overflow:"hidden"}}>
+                <div style={{display:"flex",alignItems:"center",gap:16,padding:"20px 24px",borderBottom:"1px solid var(--border-light)",background:"var(--bg-body)"}}>
+                  <div style={{background:`${s.color}14`,border:`1px solid ${s.color}30`,borderRadius:12,width:48,height:48,display:"flex",alignItems:"center",justifyContent:"center",fontSize:22,flexShrink:0}}>{s.icon}</div>
                   <div>
-                    <div style={{fontSize:10,color:s.color,fontWeight:700,textTransform:"uppercase",letterSpacing:"1px",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic"}}>Step {s.n}</div>
-                    <div style={{fontWeight:700,fontSize:16,color:"var(--white)"}}>{s.title}</div>
+                    <div style={{fontSize:11,color:s.color,fontWeight:700,textTransform:"uppercase",letterSpacing:"1px"}}>Step {s.n}</div>
+                    <div style={{fontWeight:700,fontSize:18,color:"var(--text-primary)",marginTop:2}}>{s.title}</div>
                   </div>
                 </div>
-                <div style={{padding:"16px 22px",display:"flex",flexDirection:"column",gap:8}}>
+                <div style={{padding:"20px 24px",display:"flex",flexDirection:"column",gap:12}}>
                   {s.body.map((line,j)=>(
-                    <p key={j} style={{margin:0,fontSize:13,color:line.startsWith("💡")?s.color:"var(--gray)",lineHeight:1.7,fontWeight:line.startsWith("💡")?600:400}}>{line}</p>
+                    <p key={j} style={{margin:0,fontSize:14,color:line.startsWith("💡")?s.color:"var(--text-secondary)",lineHeight:1.6,fontWeight:line.startsWith("💡")?600:400}}>{line}</p>
                   ))}
                 </div>
               </div>
             ))}
           </div>
           {/* Regola -0.25 */}
-          <div style={{...card(),padding:"24px",marginTop:16,borderColor:"rgba(37,99,235,.2)"}}>
-            <h3 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:22,fontWeight:600,margin:"0 0 16px",color:"var(--blue-l)"}}>La regola del −0.25: quando rispondo?</h3>
-            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14}}>
-              {[{tit:"✅ Rispondi sempre",col:"#4ade80",pts:["Sezione di inglese (zero penalità!)","Hai eliminato 2+ opzioni su 5","Probabilità ≥ 50% di azzeccare"]},
-                {tit:"⚠ Lascia in bianco",col:"#f87171",pts:["Non hai idea dell'argomento","Tutte e 5 le opzioni plausibili","Hai eliminato solo 1 opzione"]}].map((b,i)=>(
-                <div key={i} style={{background:`${b.col}08`,border:`1px solid ${b.col}20`,borderRadius:12,padding:"14px 16px"}}>
-                  <div style={{fontWeight:700,color:b.col,fontSize:13,marginBottom:10}}>{b.tit}</div>
-                  {b.pts.map((p,j)=><p key={j} style={{margin:"0 0 5px",fontSize:12,color:"var(--gray)",lineHeight:1.5}}>→ {p}</p>)}
+          <div className="astra-card" style={{padding:"24px",marginTop:24,borderColor:"var(--border-blue)",background:"var(--bg-body)"}}>
+            <h3 style={{fontSize:20,fontWeight:700,margin:"0 0 20px",color:"var(--astra-blue)"}}>La regola del −0.25: quando rispondo?</h3>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}}>
+              {[{tit:"✅ Rispondi sempre",col:"#10b981",pts:["Sezione di inglese (zero penalità!)","Hai eliminato 2+ opzioni su 5","Probabilità ≥ 50% di azzeccare"]},
+                {tit:"⚠ Lascia in bianco",col:"#ef4444",pts:["Non hai idea dell'argomento","Tutte e 5 le opzioni plausibili","Hai eliminato solo 1 opzione"]}].map((b,i)=>(
+                <div key={i} style={{background:`${b.col}08`,border:`1px solid ${b.col}20`,borderRadius:12,padding:"16px",display:"flex",flexDirection:"column",gap:8}}>
+                  <div style={{fontWeight:700,color:b.col,fontSize:14}}>{b.tit}</div>
+                  {b.pts.map((p,j)=><p key={j} style={{margin:0,fontSize:13,color:"var(--text-secondary)",lineHeight:1.5}}>→ {p}</p>)}
                 </div>
               ))}
             </div>
-            <p style={{margin:"14px 0 0",fontSize:11,color:"var(--muted)",fontStyle:"italic"}}>Con 5 opzioni, il valore atteso di una risposta casuale è 0 — ma eliminare anche solo 1 opzione rende conveniente rispondere.</p>
+            <p style={{margin:"20px 0 0",fontSize:13,color:"var(--text-muted)",fontStyle:"italic"}}>Con 5 opzioni, il valore atteso di una risposta casuale è 0 — ma eliminare anche solo 1 opzione rende conveniente rispondere.</p>
           </div>
         </div>
       )}
 
       {/* FOOTER */}
-      <footer style={{borderTop:"1px solid var(--border)",padding:"32px 28px",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:16}}>
-        <AstraLogo />
-        <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:14,color:"var(--muted)"}}>Main Students' Representative Association · Bocconi University</p>
-        <a href="https://www.astrabocconi.com" target="_blank" rel="noopener noreferrer" style={{fontSize:12,color:"var(--blue-l)",fontWeight:600}}>astrabocconi.com ↗</a>
+      <footer style={{borderTop:"1px solid var(--border-light)",padding:"40px 24px",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:20,background:"var(--bg-card)"}}>
+        <AstraLogo variant="dark" size="md" />
+        <p style={{fontSize:14,color:"var(--text-secondary)",fontWeight:500,margin:0}}>Associazione Studentesca · Main Students' Representative · Università Bocconi</p>
+        <a href="https://www.astrabocconi.com" target="_blank" rel="noopener noreferrer" style={{fontSize:14,color:"var(--astra-blue)",fontWeight:600,textDecoration:"none"}}>astrabocconi.com ↗</a>
       </footer>
     </div>
   );
@@ -739,55 +734,55 @@ export default function App() {
         <div style={{maxWidth:840,margin:"0 auto",padding:"40px 20px 80px"}}>
           {/* Header */}
           <SectionLabel>{tolc.facolta[0]}</SectionLabel>
-          <h2 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:36,fontWeight:600,margin:"6px 0 6px",color:"var(--white)",lineHeight:1}}>
+          <h2 style={{fontSize:40,fontWeight:800,margin:"8px 0 8px",color:"var(--text-primary)",lineHeight:1.1,letterSpacing:"-1px"}}>
             {tolc.emoji} {tolc.key}
           </h2>
-          <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:15,color:"var(--gray)",margin:"0 0 28px"}}>{tolc.subject}</p>
+          <p style={{fontSize:16,color:"var(--text-secondary)",margin:"0 0 32px",fontWeight:500}}>{tolc.subject}</p>
 
           {/* Struttura */}
-          <div style={{...card(),padding:"20px 22px",marginBottom:18}}>
-            <p style={{fontSize:11,color:"var(--muted)",textTransform:"uppercase",letterSpacing:".7px",fontWeight:600,marginBottom:12}}>Struttura del test</p>
-            <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:10}}>
+          <div className="astra-card" style={{padding:"24px 24px",marginBottom:24}}>
+            <p style={{fontSize:12,color:"var(--text-muted)",textTransform:"uppercase",letterSpacing:".7px",fontWeight:700,marginBottom:16}}>Struttura del test</p>
+            <div style={{display:"flex",flexWrap:"wrap",gap:10,marginBottom:12}}>
               {tolc.sezioni.map(s=>(
-                <div key={s.nome} style={{background:`${s.color}0e`,border:`1px solid ${s.color}22`,borderRadius:8,padding:"5px 12px",fontSize:12}}>
+                <div key={s.nome} style={{background:`${s.color}10`,border:`1px solid ${s.color}25`,borderRadius:8,padding:"6px 14px",fontSize:13}}>
                   <span>{s.icon}</span>
-                  <span style={{marginLeft:6,color:"var(--white)"}}>{s.nome}</span>
-                  <span style={{marginLeft:6,fontWeight:700,color:s.color}}>{s.n}q</span>
+                  <span style={{marginLeft:8,color:"var(--text-primary)",fontWeight:500}}>{s.nome}</span>
+                  <span style={{marginLeft:8,fontWeight:700,color:s.color}}>{s.n}q</span>
                 </div>
               ))}
             </div>
-            <p style={{fontSize:11,color:"var(--muted)",margin:"0 0 6px"}}>{tolc.desc} · Penalità: −0.25 per risposta errata · Inglese: nessuna penalità</p>
-            {tolc.tip && <p style={{margin:0,fontSize:12,color:`${tolc.color}cc`,fontStyle:"italic",lineHeight:1.6,fontFamily:"'Cormorant Garamond',serif"}}>💡 {tolc.tip}</p>}
+            <p style={{fontSize:13,color:"var(--text-secondary)",margin:"0 0 8px",lineHeight:1.6}}>{tolc.desc} · Penalità: −0.25 per risposta errata · Inglese: nessuna penalità</p>
+            {tolc.tip && <p style={{margin:0,fontSize:13,color:tolc.color,fontStyle:"italic",lineHeight:1.6,background:`${tolc.color}08`,padding:"8px 12px",borderRadius:6}}>💡 {tolc.tip}</p>}
           </div>
 
           {/* Actions */}
-          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(220px,1fr))",gap:14,marginBottom:18}}>
+          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(220px,1fr))",gap:16,marginBottom:24}}>
             {[
               {icon:"🎯",label:"Quiz Simulazione",sub:"30 domande AI · timer reale · scoring TOLC con −0.25",color:tolc.color,action:startQuiz,primary:true},
               {icon:"🃏",label:"Flashcard",sub:"Concetti chiave per argomento con flip animato",color:"#c084fc",action:()=>go("flashcard")},
               {icon:"🗺",label:"Mappa di Studio",sub:"Tutti gli argomenti del syllabus CISIA organizzati",color:"#34d399",action:()=>go("studymap")},
-            ].map(c=>(
-              <button key={c.label} className="btn-astra" onClick={c.action}
-                style={{...card(c.primary?{background:`${c.color}0e`,borderColor:`${c.color}30`}:{}),padding:"22px 20px",cursor:"pointer",color:"var(--white)",textAlign:"left",width:"100%"}}>
-                <div style={{fontSize:30,marginBottom:12}}>{c.icon}</div>
-                <div style={{fontWeight:700,fontSize:16,color:c.color,marginBottom:6}}>{c.label}</div>
-                <div style={{fontSize:12,color:"var(--muted)",lineHeight:1.6}}>{c.sub}</div>
+            ].map((c,i)=>(
+              <button key={c.label} className={c.primary ? "astra-card astra-card-hoverable" : "astra-card astra-card-hoverable"} onClick={c.action}
+                style={{padding:"24px 20px",cursor:"pointer",textAlign:"left",width:"100%",border:c.primary?`2px solid ${c.color}40`:"1px solid var(--border-light)",background:c.primary?`${c.color}08`:"var(--bg-card)"}}>
+                <div style={{fontSize:32,marginBottom:14}}>{c.icon}</div>
+                <div style={{fontWeight:700,fontSize:17,color:c.color,marginBottom:8}}>{c.label}</div>
+                <div style={{fontSize:13,color:"var(--text-secondary)",lineHeight:1.6}}>{c.sub}</div>
               </button>
             ))}
           </div>
 
           {/* Risorse */}
           {risorse.length>0 && (
-            <div style={{...card(),padding:"20px 22px",marginBottom:18}}>
-              <p style={{fontSize:11,color:"var(--muted)",textTransform:"uppercase",letterSpacing:".7px",fontWeight:600,marginBottom:14}}>Risorse per il {tolc.key}</p>
-              <div style={{display:"flex",flexDirection:"column",gap:8}}>
+            <div className="astra-card" style={{padding:"24px",marginBottom:24}}>
+              <p style={{fontSize:12,color:"var(--text-muted)",textTransform:"uppercase",letterSpacing:".7px",fontWeight:700,marginBottom:16}}>Risorse per il {tolc.key}</p>
+              <div style={{display:"flex",flexDirection:"column",gap:10}}>
                 {risorse.map((r,i)=>(
-                  <a key={i} className="link-card" href={r.url} target="_blank" rel="noopener noreferrer"
-                    style={{display:"flex",alignItems:"flex-start",gap:12,padding:"10px 14px",background:"rgba(255,255,255,.02)",border:"1px solid var(--border)",borderRadius:10,textDecoration:"none",color:"var(--white)"}}>
+                  <a key={i} className="astra-card-hoverable" href={r.url} target="_blank" rel="noopener noreferrer"
+                    style={{display:"flex",alignItems:"flex-start",gap:14,padding:"14px 16px",background:"var(--bg-subtle)",border:"1px solid var(--border-light)",borderRadius:10,textDecoration:"none",color:"var(--text-primary)"}}>
                     <Badge color={tolc.color}>{r.tag}</Badge>
                     <div>
-                      <div style={{fontSize:13,fontWeight:700,color:tolc.color,marginBottom:2}}>{r.name} ↗</div>
-                      <div style={{fontSize:12,color:"var(--muted)",lineHeight:1.5}}>{r.desc}</div>
+                      <div style={{fontSize:14,fontWeight:700,color:tolc.color,marginBottom:4}}>{r.name} <span style={{fontSize:12,color:"var(--text-muted)"}}>↗</span></div>
+                      <div style={{fontSize:13,color:"var(--text-secondary)",lineHeight:1.5}}>{r.desc}</div>
                     </div>
                   </a>
                 ))}
@@ -797,14 +792,14 @@ export default function App() {
 
           {/* Session scores */}
           {stats.filter(s=>s.tid===tid).length>0 && (
-            <div style={{...card(),padding:"16px 20px"}}>
-              <p style={{fontSize:11,color:"var(--muted)",textTransform:"uppercase",letterSpacing:".5px",fontWeight:600,marginBottom:10}}>I tuoi quiz di oggi</p>
-              <div style={{display:"flex",flexWrap:"wrap",gap:8}}>
+            <div className="astra-card" style={{padding:"20px 24px"}}>
+              <p style={{fontSize:12,color:"var(--text-muted)",textTransform:"uppercase",letterSpacing:".5px",fontWeight:700,marginBottom:12}}>I tuoi quiz di oggi</p>
+              <div style={{display:"flex",flexWrap:"wrap",gap:10}}>
                 {stats.filter(s=>s.tid===tid).map((s,i)=>{
-                  const c=s.score>=20?"#4ade80":s.score>=12?"#fbbf24":"#f87171";
-                  return(<div key={i} style={{background:`${c}0e`,border:`1px solid ${c}25`,borderRadius:8,padding:"5px 14px",fontSize:13}}>
+                  const c=s.score>=20?"#10b981":s.score>=12?"#f59e0b":"#ef4444";
+                  return(<div key={i} style={{background:`${c}10`,border:`1px solid ${c}25`,borderRadius:8,padding:"6px 14px",fontSize:13}}>
                     <span style={{fontWeight:700,color:c}}>{s.score} / 30</span>
-                    <span style={{marginLeft:8,fontSize:11,color:"var(--muted)"}}>{s.time}</span>
+                    <span style={{marginLeft:8,fontSize:12,color:"var(--text-muted)"}}>{s.time}</span>
                   </div>);
                 })}
               </div>
@@ -823,11 +818,11 @@ export default function App() {
 
     // Loading
     if (quiz.loading) return (
-      <div style={{minHeight:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:24,position:"relative",zIndex:1}}>
-        <AstraLogo size="lg"/>
+      <div style={{minHeight:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:24,position:"relative",zIndex:1,background:"var(--bg-body)"}}>
+        <AstraLogo size="lg" variant="dark"/>
         <div style={{textAlign:"center",marginTop:16}}>
-          <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:22,color:"var(--white)",margin:"0 0 8px"}}>Generazione domande in corso…</p>
-          <p style={{fontSize:13,color:"var(--gray)"}}>L'AI sta preparando 30 domande per <strong style={{color:tolc.color}}>{tolc.key}</strong></p>
+          <p style={{fontSize:22,fontWeight:600,color:"var(--text-primary)",margin:"0 0 8px"}}>Generazione domande in corso…</p>
+          <p style={{fontSize:14,color:"var(--text-secondary)"}}>L'AI sta preparando 30 domande per <strong style={{color:tolc.color}}>{tolc.key}</strong></p>
         </div>
         <div style={{width:260}}><div className="shimmer-bar"/></div>
       </div>
@@ -836,8 +831,8 @@ export default function App() {
     // Error
     if (quiz.err) return (
       <div style={{minHeight:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,position:"relative",zIndex:1}}>
-        <p style={{fontSize:16,color:"#f87171"}}>{quiz.err}</p>
-        <button className="btn-astra" onClick={()=>go("dashboard")} style={{...primaryBtn()}}>← Dashboard</button>
+        <p style={{fontSize:16,color:"#ef4444",fontWeight:500}}>{quiz.err}</p>
+        <button className="btn-primary" onClick={()=>go("dashboard")}>← Dashboard</button>
       </div>
     );
 
@@ -856,36 +851,36 @@ export default function App() {
           </nav>
           <div style={{maxWidth:720,margin:"0 auto",padding:"40px 20px 80px"}}>
             {/* Score hero */}
-            <div style={{textAlign:"center",marginBottom:36}}>
-              <div style={{fontSize:56,marginBottom:8}}>{grade.emoji}</div>
-              <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:52,fontWeight:600,color:grade.c,lineHeight:1}}>{quiz.score}</div>
-              <div style={{fontSize:14,color:"var(--gray)",marginTop:4}}>{grade.l} — {pct.toFixed(0)}% corretto</div>
+            <div style={{textAlign:"center",marginBottom:40}}>
+              <div style={{fontSize:64,marginBottom:12}}>{grade.emoji}</div>
+              <div style={{fontSize:56,fontWeight:800,color:grade.c,lineHeight:1,letterSpacing:"-1px"}}>{quiz.score}</div>
+              <div style={{fontSize:15,color:"var(--text-secondary)",marginTop:8,fontWeight:500}}>{grade.l} — {pct.toFixed(0)}% corretto</div>
             </div>
             {/* Stats */}
-            <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:12,marginBottom:28}}>
-              {[{l:"Corrette",v:quiz.ok,c:"#4ade80",icon:"✅"},{l:"Errate (−0.25)",v:quiz.wrong,c:"#f87171",icon:"❌"},{l:"Omesse",v:quiz.skip,c:"var(--gray)",icon:"⏭"}].map(b=>(
-                <div key={b.l} style={{...card(),padding:"18px",textAlign:"center"}}>
-                  <div style={{fontSize:22}}>{b.icon}</div>
-                  <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:32,fontWeight:600,color:b.c}}>{b.v}</div>
-                  <div style={{fontSize:11,color:"var(--muted)",marginTop:4}}>{b.l}</div>
+            <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:16,marginBottom:32}}>
+              {[{l:"Corrette",v:quiz.ok,c:"#10b981",icon:"✅"},{l:"Errate (−0.25)",v:quiz.wrong,c:"#ef4444",icon:"❌"},{l:"Omesse",v:quiz.skip,c:"var(--text-muted)",icon:"⏭"}].map(b=>(
+                <div key={b.l} className="astra-card" style={{padding:"24px",textAlign:"center"}}>
+                  <div style={{fontSize:24,marginBottom:8}}>{b.icon}</div>
+                  <div style={{fontSize:36,fontWeight:800,color:b.c,lineHeight:1}}>{b.v}</div>
+                  <div style={{fontSize:13,color:"var(--text-secondary)",marginTop:8,fontWeight:500}}>{b.l}</div>
                 </div>
               ))}
             </div>
             {/* Per subject */}
             {Object.entries(quiz.byM).length>0 && (
-              <div style={{...card(),padding:"20px",marginBottom:24}}>
-                <p style={{fontSize:11,color:"var(--muted)",textTransform:"uppercase",letterSpacing:".5px",fontWeight:600,marginBottom:14}}>Performance per materia</p>
+              <div className="astra-card" style={{padding:"24px",marginBottom:32}}>
+                <p style={{fontSize:12,color:"var(--text-muted)",textTransform:"uppercase",letterSpacing:".5px",fontWeight:700,marginBottom:16}}>Performance per materia</p>
                 {Object.entries(quiz.byM).map(([mat,d])=>{
                   const p2=d.tot>0?d.ok/d.tot:0;
-                  const col=p2>=.7?"#4ade80":p2>=.5?"#fbbf24":"#f87171";
+                  const col=p2>=.7?"#10b981":p2>=.5?"#f59e0b":"#ef4444";
                   return(
-                    <div key={mat} style={{marginBottom:10}}>
+                    <div key={mat} style={{marginBottom:14}}>
                       <div style={{display:"flex",justifyContent:"space-between",marginBottom:4}}>
-                        <span style={{fontSize:13,color:"var(--white)"}}>{mat}</span>
-                        <span style={{fontSize:13,fontWeight:700,color:col}}>{d.ok}/{d.tot}</span>
+                        <span style={{fontSize:14,color:"var(--text-primary)",fontWeight:600}}>{mat}</span>
+                        <span style={{fontSize:14,fontWeight:700,color:col}}>{d.ok}/{d.tot}</span>
                       </div>
-                      <div style={{height:4,background:"rgba(255,255,255,.06)",borderRadius:2,overflow:"hidden"}}>
-                        <div style={{width:`${p2*100}%`,height:"100%",background:col,borderRadius:2,transition:"width .8s ease"}}/>
+                      <div style={{height:6,background:"var(--bg-subtle)",borderRadius:3,overflow:"hidden"}}>
+                        <div style={{width:`${p2*100}%`,height:"100%",background:col,borderRadius:3,transition:"width .8s ease"}}/>
                       </div>
                     </div>
                   );
@@ -893,27 +888,27 @@ export default function App() {
               </div>
             )}
             {/* Review */}
-            <h3 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:22,fontWeight:600,marginBottom:14,color:"var(--white)"}}>Revisione domande</h3>
+            <h3 style={{fontSize:24,fontWeight:700,marginBottom:20,color:"var(--astra-blue)",letterSpacing:"-0.5px"}}>Revisione domande</h3>
             {quiz.qs.map((q,i)=>{
               const ans=quiz.ans[i];const corr=q.r||q.corretta;
               const isOk=ans&&ans===corr;const isMiss=!ans;
-              const col=isOk?"#4ade80":isMiss?"var(--muted)":"#f87171";
+              const col=isOk?"#10b981":isMiss?"var(--text-muted)":"#ef4444";
               return(
-                <div key={i} style={{...card(),padding:"16px",marginBottom:10}}>
-                  <div style={{display:"flex",gap:8,alignItems:"flex-start",marginBottom:10}}>
-                    <span style={{fontSize:16,flexShrink:0,marginTop:2}}>{isOk?"✅":isMiss?"⏭":"❌"}</span>
+                <div key={i} className="astra-card" style={{padding:"20px",marginBottom:16}}>
+                  <div style={{display:"flex",gap:12,alignItems:"flex-start",marginBottom:12}}>
+                    <span style={{fontSize:18,flexShrink:0,marginTop:2}}>{isOk?"✅":isMiss?"⏭":"❌"}</span>
                     <div>
                       <Badge color={tolc.color}>{q.m}</Badge>
-                      <p style={{fontSize:14,color:"var(--white)",lineHeight:1.6,marginTop:6}}>{q.d}</p>
+                      <p style={{fontSize:15,color:"var(--text-primary)",lineHeight:1.6,marginTop:8,fontWeight:500}}>{q.d}</p>
                     </div>
                   </div>
-                  {ans&&ans!==corr&&<p style={{margin:"0 0 4px",fontSize:12,color:"#f87171"}}>La tua risposta: {ans}</p>}
-                  <p style={{margin:"0 0 4px",fontSize:12,color:"#4ade80",fontWeight:700}}>Risposta corretta: {corr}</p>
-                  {q.s&&<p style={{margin:0,fontSize:12,color:"var(--muted)",lineHeight:1.6,borderTop:"1px solid var(--border)",paddingTop:8,marginTop:6}}>💡 {q.s}</p>}
+                  {ans&&ans!==corr&&<p style={{margin:"0 0 6px",fontSize:13,color:"#ef4444",fontWeight:500}}>La tua risposta: {ans}</p>}
+                  <p style={{margin:"0 0 6px",fontSize:13,color:"#10b981",fontWeight:700}}>Risposta corretta: {corr}</p>
+                  {q.s&&<p style={{margin:0,fontSize:13,color:"var(--text-secondary)",lineHeight:1.6,borderTop:"1px solid var(--border-light)",paddingTop:12,marginTop:10,background:"var(--bg-subtle)",padding:"10px 14px",borderRadius:8}}>💡 {q.s}</p>}
                 </div>
               );
             })}
-            <button className="btn-astra" onClick={startQuiz} style={{...primaryBtn(tolc.color),width:"100%",marginTop:16,padding:"14px",fontSize:15}}>
+            <button className="btn-primary" onClick={startQuiz} style={{width:"100%",marginTop:24,padding:"16px",fontSize:16}}>
               🔄 Nuovo Quiz
             </button>
           </div>
@@ -927,39 +922,42 @@ export default function App() {
     const tPct=quiz.tLeft/quiz.tTotal;
     const tColor=timerCol(quiz.tLeft,quiz.tTotal);
     return (
-      <div style={{minHeight:"100vh",position:"relative",zIndex:1}}>
-        <nav style={{...nav,gap:10}}>
-          <button style={backBtn} onClick={()=>go("dashboard")}>← Esci</button>
-          <AstraLogo/>
+      <div style={{minHeight:"100vh",position:"relative",zIndex:1,background:"var(--bg-body)"}}>
+        <nav style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"16px 24px",background:"var(--bg-nav)",backdropFilter:"blur(12px)",borderBottom:"1px solid var(--border-light)",position:"sticky",top:0,zIndex:50}}>
+          <button className="btn-secondary" onClick={()=>go("dashboard")}>← Esci</button>
+          <AstraLogo variant="dark" />
           <span style={{flex:1}}/>
-          <div style={{background:`${tColor}14`,border:`1px solid ${tColor}35`,borderRadius:10,padding:"6px 16px",fontSize:14,fontWeight:700,color:tColor,fontVariantNumeric:"tabular-nums"}}>⏱ {fmt(quiz.tLeft)}</div>
-          <button className="btn-astra" onClick={submit} style={{background:"rgba(255,255,255,.06)",border:"1px solid var(--border)",borderRadius:10,padding:"6px 16px",cursor:"pointer",color:"var(--gray)",fontSize:13,fontWeight:600}}>Consegna</button>
+          <div style={{background:`${tColor}14`,border:`1px solid ${tColor}35`,borderRadius:8,padding:"8px 16px",fontSize:15,fontWeight:700,color:tColor,fontVariantNumeric:"tabular-nums",marginRight:12}}>⏱ {fmt(quiz.tLeft)}</div>
+          <button className="btn-primary" onClick={submit}>Consegna</button>
         </nav>
         {/* Timer bar */}
-        <div style={{height:2,background:"rgba(255,255,255,.05)"}}>
+        <div style={{height:4,background:"var(--border-light)"}}>
           <div style={{height:"100%",width:`${tPct*100}%`,background:tColor,transition:"width 1s linear"}}/>
         </div>
 
-        <div style={{maxWidth:720,margin:"0 auto",padding:"32px 20px"}}>
-          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:20}}>
-            <span style={{fontSize:13,color:"var(--muted)"}}>Domanda <span style={{color:"var(--blue-l)",fontWeight:700}}>{quiz.cur+1}</span> / {quiz.qs.length}</span>
+        <div style={{maxWidth:760,margin:"0 auto",padding:"40px 20px"}}>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:24}}>
+            <span style={{fontSize:14,color:"var(--text-secondary)",fontWeight:500}}>Domanda <span style={{color:"var(--astra-blue)",fontWeight:700}}>{quiz.cur+1}</span> / {quiz.qs.length}</span>
             <Badge color={tolc.color}>{q.m}</Badge>
           </div>
 
           {/* Question */}
-          <div style={{...card(),padding:"24px",marginBottom:16}}>
-            <p style={{margin:0,fontSize:16,lineHeight:1.75,color:"var(--white)"}}>{q.d}</p>
+          <div className="astra-card" style={{padding:"32px 28px",marginBottom:24}}>
+            <p style={{margin:0,fontSize:18,lineHeight:1.6,color:"var(--text-primary)",fontWeight:500}}>{q.d}</p>
           </div>
 
           {/* Options */}
-          <div style={{display:"flex",flexDirection:"column",gap:10,marginBottom:24}}>
+          <div style={{display:"flex",flexDirection:"column",gap:12,marginBottom:32}}>
             {(q.o||[]).map((opt,i)=>{
               const letter=String.fromCharCode(65+i);
               const selected=quiz.ans[quiz.cur]===letter;
               return(
-                <button key={i} className="btn-astra" onClick={()=>answer(letter)}
-                  style={{...card(selected?{background:`${tolc.color}12`,borderColor:`${tolc.color}45`}:{}),padding:"13px 18px",cursor:"pointer",color:selected?"var(--white)":"var(--gray)",textAlign:"left",fontSize:14,lineHeight:1.5,width:"100%"}}>
-                  <span style={{fontWeight:700,color:selected?tolc.color:"var(--muted)",marginRight:10}}>{letter})</span>
+                <button key={i} className="astra-card astra-card-hoverable" onClick={()=>answer(letter)}
+                  style={{padding:"18px 20px",cursor:"pointer",textAlign:"left",fontSize:15,lineHeight:1.5,width:"100%",
+                          background:selected?`${tolc.color}08`:"var(--bg-card)",
+                          border:selected?`2px solid ${tolc.color}40`:"1px solid var(--border-light)",
+                          color:selected?"var(--astra-blue)":"var(--text-primary)"}}>
+                  <span style={{fontWeight:700,color:selected?tolc.color:"var(--text-muted)",marginRight:12}}>{letter})</span>
                   {opt.replace(/^[A-E]\)\s*/,"")}
                 </button>
               );
@@ -967,22 +965,27 @@ export default function App() {
           </div>
 
           {/* Prev/Next */}
-          <div style={{display:"flex",gap:12,marginBottom:24}}>
-            <button className="btn-astra" onClick={prevQ} disabled={quiz.cur===0}
-              style={{flex:1,...card(),padding:"10px",cursor:quiz.cur===0?"not-allowed":"pointer",color:"var(--muted)",fontSize:14,opacity:quiz.cur===0?.4:1}}>← Precedente</button>
-            <button className="btn-astra" onClick={nextQ} disabled={quiz.cur===quiz.qs.length-1}
-              style={{flex:1,...card({background:`${tolc.color}0e`,borderColor:`${tolc.color}30`}),padding:"10px",cursor:quiz.cur===quiz.qs.length-1?"not-allowed":"pointer",color:tolc.color,fontSize:14,fontWeight:600,opacity:quiz.cur===quiz.qs.length-1?.4:1}}>Successiva →</button>
+          <div style={{display:"flex",gap:16,marginBottom:32}}>
+            <button className="btn-secondary" onClick={prevQ} disabled={quiz.cur===0}
+              style={{flex:1,padding:"14px",cursor:quiz.cur===0?"not-allowed":"pointer",color:quiz.cur===0?"var(--text-muted)":"var(--text-primary)",fontSize:15,opacity:quiz.cur===0?.5:1}}>← Precedente</button>
+            <button className="btn-primary" onClick={nextQ} disabled={quiz.cur===quiz.qs.length-1}
+              style={{flex:1,padding:"14px",cursor:quiz.cur===quiz.qs.length-1?"not-allowed":"pointer",fontSize:15,opacity:quiz.cur===quiz.qs.length-1?.5:1}}>Successiva →</button>
           </div>
 
           {/* Quick nav */}
-          <div style={{...card(),padding:"14px 16px"}}>
-            <p style={{fontSize:10,color:"var(--muted)",textTransform:"uppercase",letterSpacing:".5px",marginBottom:8}}>Navigazione rapida</p>
-            <div style={{display:"flex",flexWrap:"wrap",gap:5}}>
+          <div className="astra-card" style={{padding:"20px 24px"}}>
+            <p style={{fontSize:11,color:"var(--text-muted)",textTransform:"uppercase",letterSpacing:".5px",marginBottom:12,fontWeight:700}}>Navigazione rapida</p>
+            <div style={{display:"flex",flexWrap:"wrap",gap:8}}>
               {quiz.qs.map((_,i)=>{
                 const a=quiz.ans[i];const isCur=quiz.cur===i;
                 return(
                   <button key={i} onClick={()=>setQuiz(p=>({...p,cur:i}))}
-                    style={{width:28,height:28,borderRadius:6,border:`1px solid ${isCur?tolc.color:a?"rgba(255,255,255,.15)":"var(--border)"}`,background:isCur?`${tolc.color}20`:a?"rgba(255,255,255,.05)":"transparent",cursor:"pointer",color:isCur?tolc.color:a?"var(--white)":"var(--muted)",fontSize:11,fontWeight:isCur?700:400}}>
+                    style={{width:34,height:34,borderRadius:8,
+                            border:`1px solid ${isCur?tolc.color:a?"var(--border-blue)":"var(--border-light)"}`,
+                            background:isCur?`${tolc.color}15`:a?"var(--bg-subtle)":"var(--bg-card)",
+                            cursor:"pointer",
+                            color:isCur?tolc.color:a?"var(--astra-blue)":"var(--text-muted)",
+                            fontSize:12,fontWeight:isCur?700:500}}>
                     {i+1}
                   </button>
                 );
@@ -999,63 +1002,63 @@ export default function App() {
   // ════════════════════════════════════════════════════════════
   if (view==="flashcard") {
     if (!fcTopics.length) return (
-      <div style={{minHeight:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,position:"relative",zIndex:1}}>
-        <p style={{color:"var(--gray)"}}>Nessuna flashcard disponibile.</p>
-        <button className="btn-astra" onClick={()=>go("dashboard")} style={{...primaryBtn()}}>← Indietro</button>
+      <div style={{minHeight:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,position:"relative",zIndex:1,background:"var(--bg-body)"}}>
+        <p style={{color:"var(--text-secondary)",fontSize:15}}>Nessuna flashcard disponibile.</p>
+        <button className="btn-primary" onClick={()=>go("dashboard")}>← Indietro</button>
       </div>
     );
     return (
-      <div style={{minHeight:"100vh",position:"relative",zIndex:1}}>
-        <nav style={nav}>
-          <button style={backBtn} onClick={()=>go("dashboard")}>← Dashboard</button>
-          <AstraLogo/>
+      <div style={{minHeight:"100vh",position:"relative",zIndex:1,background:"var(--bg-body)"}}>
+        <nav style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"16px 24px",background:"var(--bg-nav)",backdropFilter:"blur(12px)",borderBottom:"1px solid var(--border-light)",position:"sticky",top:0,zIndex:50}}>
+          <button className="btn-secondary" onClick={()=>go("dashboard")}>← Dashboard</button>
+          <AstraLogo variant="dark" />
           <div style={{flex:1}}/>
           <Badge color={tolc.color}>{tolc.key} — Flashcard</Badge>
         </nav>
-        <div style={{maxWidth:680,margin:"0 auto",padding:"36px 20px 80px"}}>
+        <div style={{maxWidth:680,margin:"0 auto",padding:"40px 20px 80px"}}>
           {/* Topic tabs */}
-          <div style={{display:"flex",gap:8,overflowX:"auto",paddingBottom:4,marginBottom:28}}>
+          <div style={{display:"flex",gap:8,overflowX:"auto",paddingBottom:4,marginBottom:32}}>
             {fcTopics.map((tp,i)=>(
-              <button key={i} className="tab-astra" onClick={()=>setFc({ti:i,ci:0,flipped:false})}
-                style={{flexShrink:0,borderColor:fc.ti===i?`${tolc.color}40`:"transparent"}}>{tp.topic}</button>
+              <button key={i} className={`tab-astra${fc.ti===i?" active":""}`} onClick={()=>setFc({ti:i,ci:0,flipped:false})}
+                style={{flexShrink:0,borderColor:fc.ti===i?`${tolc.color}40`:"transparent",whiteSpace:"nowrap"}}>{tp.topic}</button>
             ))}
           </div>
 
-          <p style={{textAlign:"center",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",color:"var(--gray)",fontSize:15,marginBottom:20}}>
-            Carta <span style={{color:tolc.color,fontWeight:600}}>{fc.ci+1}</span> di {curTopic.cards.length} — clicca per rivelare
+          <p style={{textAlign:"center",fontSize:13,color:"var(--text-muted)",fontWeight:600,textTransform:"uppercase",letterSpacing:".5px",marginBottom:24}}>
+            Carta <span style={{color:tolc.color,fontWeight:800}}>{fc.ci+1}</span> di {curTopic.cards.length} — clicca per rivelare
           </p>
 
           {/* Flip card */}
-          <div className="flip-card" onClick={flipCard} style={{minHeight:240}}>
+          <div className="flip-card" onClick={flipCard} style={{minHeight:280}}>
             <div className={`flip-inner${fc.flipped?" flipped":""}`}>
               <div className="flip-front">
-                <div style={{...card({borderColor:`${tolc.color}20`}),padding:"44px 36px",minHeight:240,display:"flex",flexDirection:"column",justifyContent:"center",gap:16}}>
-                  <span style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:12,color:tolc.color,letterSpacing:"1px"}}>Domanda</span>
-                  <p style={{fontFamily:"'Cormorant Garamond',serif",fontSize:24,fontWeight:600,color:"var(--white)",lineHeight:1.4,margin:0}}>{curCard.f}</p>
-                  <span style={{fontSize:11,color:"var(--muted)",marginTop:"auto"}}>Tocca per vedere la risposta →</span>
+                <div className="astra-card astra-card-hoverable" style={{borderColor:tolc.color,padding:"44px 36px",minHeight:280,display:"flex",flexDirection:"column",justifyContent:"center",gap:16}}>
+                  <span style={{fontSize:12,fontWeight:700,color:tolc.color,letterSpacing:"1px",textTransform:"uppercase"}}>Domanda</span>
+                  <p style={{fontSize:22,fontWeight:600,color:"var(--text-primary)",lineHeight:1.5,margin:0}}>{curCard.f}</p>
+                  <span style={{fontSize:13,color:"var(--text-muted)",marginTop:"auto",fontWeight:500}}>Tocca per vedere la risposta →</span>
                 </div>
               </div>
               <div className="flip-back">
-                <div style={{...card({background:`${tolc.color}08`,borderColor:`${tolc.color}30`}),padding:"40px 36px",minHeight:240,display:"flex",flexDirection:"column",justifyContent:"center",gap:16}}>
-                  <span style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:12,color:"#d4a84b",letterSpacing:"1px"}}>Risposta</span>
-                  <p style={{fontSize:14,color:"var(--white)",lineHeight:1.9,margin:0}}>{curCard.b}</p>
+                <div className="astra-card astra-card-hoverable" style={{background:`${tolc.color}08`,borderColor:`${tolc.color}40`,padding:"40px 36px",minHeight:280,display:"flex",flexDirection:"column",justifyContent:"center",gap:16}}>
+                  <span style={{fontSize:12,fontWeight:700,color:"var(--astra-blue)",letterSpacing:"1px",textTransform:"uppercase"}}>Risposta</span>
+                  <p style={{fontSize:16,color:"var(--text-primary)",lineHeight:1.6,margin:0,fontWeight:500}}>{curCard.b}</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Dots + arrows */}
-          <div style={{display:"flex",justifyContent:"center",gap:14,marginTop:24,alignItems:"center"}}>
-            <button className="btn-astra" onClick={e=>{e.stopPropagation();prevCard();}}
-              style={{...card(),width:40,height:40,borderRadius:"50%",padding:0,cursor:"pointer",color:"var(--gray)",fontSize:18}}>←</button>
-            <div style={{display:"flex",gap:5,alignItems:"center"}}>
+          <div style={{display:"flex",justifyContent:"center",gap:16,marginTop:32,alignItems:"center"}}>
+            <button className="astra-card astra-card-hoverable" onClick={e=>{e.stopPropagation();prevCard();}}
+              style={{width:48,height:48,borderRadius:"50%",padding:0,cursor:"pointer",color:"var(--text-secondary)",fontSize:20,display:"flex",alignItems:"center",justifyContent:"center",border:"1px solid var(--border-light)"}}>←</button>
+            <div style={{display:"flex",gap:6,alignItems:"center"}}>
               {curTopic.cards.map((_,i)=>(
                 <div key={i} onClick={()=>setFc(s=>({...s,ci:i,flipped:false}))}
-                  style={{width:fc.ci===i?22:7,height:7,borderRadius:4,background:fc.ci===i?tolc.color:"rgba(255,255,255,.1)",cursor:"pointer",transition:"width .2s"}}/>
+                  style={{width:fc.ci===i?24:8,height:8,borderRadius:4,background:fc.ci===i?tolc.color:"var(--border-light)",cursor:"pointer",transition:"width .2s"}}/>
               ))}
             </div>
-            <button className="btn-astra" onClick={e=>{e.stopPropagation();nextCard();}}
-              style={{...card({background:`${tolc.color}0e`,borderColor:`${tolc.color}30`}),width:40,height:40,borderRadius:"50%",padding:0,cursor:"pointer",color:tolc.color,fontSize:18}}>→</button>
+            <button className="astra-card astra-card-hoverable" onClick={e=>{e.stopPropagation();nextCard();}}
+              style={{background:`${tolc.color}15`,borderColor:`${tolc.color}40`,width:48,height:48,borderRadius:"50%",padding:0,cursor:"pointer",color:tolc.color,fontSize:20,display:"flex",alignItems:"center",justifyContent:"center",border:"1px solid transparent"}}>→</button>
           </div>
         </div>
       </div>
@@ -1066,42 +1069,42 @@ export default function App() {
   //  VIEW: STUDY MAP
   // ════════════════════════════════════════════════════════════
   if (view==="studymap") return (
-    <div style={{minHeight:"100vh",position:"relative",zIndex:1}}>
-      <nav style={nav}>
-        <button style={backBtn} onClick={()=>go("dashboard")}>← Dashboard</button>
-        <AstraLogo/>
+    <div style={{minHeight:"100vh",position:"relative",zIndex:1,background:"var(--bg-body)"}}>
+      <nav style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"16px 24px",background:"var(--bg-nav)",backdropFilter:"blur(12px)",borderBottom:"1px solid var(--border-light)",position:"sticky",top:0,zIndex:50}}>
+        <button className="btn-secondary" onClick={()=>go("dashboard")}>← Dashboard</button>
+        <AstraLogo variant="dark" />
         <div style={{flex:1}}/>
         <Badge color={tolc.color}>{tolc.key} — Mappa di Studio</Badge>
       </nav>
-      <div style={{maxWidth:840,margin:"0 auto",padding:"36px 20px 80px"}}>
+      <div style={{maxWidth:840,margin:"0 auto",padding:"40px 20px 80px"}}>
         <SectionLabel>Syllabus ufficiale CISIA</SectionLabel>
-        <h2 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:30,fontWeight:600,margin:"6px 0 8px",color:"var(--white)"}}>Mappa completa degli argomenti</h2>
-        <p style={{fontSize:13,color:"var(--muted)",marginBottom:28,lineHeight:1.7}}>
+        <h2 style={{fontSize:32,fontWeight:700,margin:"8px 0 12px",color:"var(--text-primary)",letterSpacing:"-0.5px"}}>Mappa completa degli argomenti</h2>
+        <p style={{fontSize:15,color:"var(--text-secondary)",marginBottom:36,lineHeight:1.6}}>
           Copre tutti gli argomenti del syllabus ufficiale CISIA. Per il programma completo visita{" "}
-          <a href="https://www.cisiaonline.it" target="_blank" rel="noopener noreferrer" style={{color:"var(--blue-l)"}}>cisiaonline.it ↗</a>
+          <a href="https://www.cisiaonline.it" target="_blank" rel="noopener noreferrer" style={{color:"var(--astra-blue)",fontWeight:600}}>cisiaonline.it ↗</a>
         </p>
 
         {smap.map((area,i)=>(
-          <div key={i} style={{marginBottom:24}}>
-            <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:14}}>
-              <div style={{width:3,height:28,background:area.color,borderRadius:2}}/>
-              <h3 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:24,fontWeight:600,color:area.color,margin:0}}>{area.area}</h3>
+          <div key={i} style={{marginBottom:32}}>
+            <div style={{display:"flex",alignItems:"center",gap:16,marginBottom:16}}>
+              <div style={{width:4,height:32,background:area.color,borderRadius:2}}/>
+              <h3 style={{fontSize:24,fontWeight:700,color:area.color,margin:0}}>{area.area}</h3>
             </div>
-            <div style={{display:"flex",flexDirection:"column",gap:8}}>
+            <div style={{display:"flex",flexDirection:"column",gap:12}}>
               {area.topics.map((t,j)=>{
                 const key=`${i}-${j}`;const open=!!mapOpen[key];
                 return(
-                  <div key={j} style={{...card(),overflow:"hidden"}}>
+                  <div key={j} className="astra-card" style={{overflow:"hidden"}}>
                     <button onClick={()=>setMapOpen(s=>({...s,[key]:!open}))}
-                      style={{width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center",padding:"14px 20px",background:"transparent",border:"none",cursor:"pointer",color:"var(--white)",textAlign:"left"}}>
-                      <span style={{fontWeight:600,fontSize:14}}>{t.t}</span>
-                      <span style={{color:area.color,fontSize:11,transition:"transform .2s",transform:open?"rotate(180deg)":"none"}}>▼</span>
+                      style={{width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center",padding:"16px 20px",background:"transparent",border:"none",cursor:"pointer",color:"var(--text-primary)",textAlign:"left"}}>
+                      <span style={{fontWeight:600,fontSize:15}}>{t.t}</span>
+                      <span style={{color:area.color,fontSize:12,transition:"transform .2s",transform:open?"rotate(180deg)":"none"}}>▼</span>
                     </button>
                     {open && (
-                      <div style={{padding:"4px 20px 16px",borderTop:"1px solid var(--border)"}}>
-                        <div style={{display:"flex",flexWrap:"wrap",gap:6,marginTop:10}}>
+                      <div style={{padding:"4px 20px 20px",borderTop:"1px solid var(--border-light)"}}>
+                        <div style={{display:"flex",flexWrap:"wrap",gap:8,marginTop:14}}>
                           {t.sub.map((s,k)=>(
-                            <span key={k} style={{background:`${area.color}0a`,border:`1px solid ${area.color}18`,borderRadius:8,padding:"4px 12px",fontSize:12,color:"var(--gray)"}}>{s}</span>
+                            <span key={k} style={{background:`${area.color}10`,border:`1px solid ${area.color}25`,borderRadius:8,padding:"6px 14px",fontSize:13,color:"var(--text-secondary)",fontWeight:500}}>{s}</span>
                           ))}
                         </div>
                       </div>
