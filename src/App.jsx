@@ -401,7 +401,7 @@ function AstraLogo({ size = "md" }) {
   return (
     <div style={{display:"flex",alignItems:"center",gap:10}}>
       <img
-        src="/astra-logo-full-light.png"
+        src="/WoB.png"
         alt="ASTRA Network"
         style={{height:h,width:"auto",objectFit:"contain"}}
       />
@@ -569,7 +569,7 @@ export default function App() {
       {/* HERO */}
       <div style={{position:"relative",overflow:"hidden"}}>
         {/* Blurred campus background */}
-        <div style={{position:"absolute",inset:"-40px",backgroundImage:"url(/bocconi-campus.jpg)",backgroundSize:"cover",backgroundPosition:"center",filter:"blur(40px) brightness(0.25)",opacity:0.6,zIndex:0}} />
+        <div style={{position:"absolute",inset:"-40px",backgroundImage:"url('/1633603541.png')",backgroundSize:"cover",backgroundPosition:"center",filter:"blur(40px) brightness(0.25)",opacity:0.6,zIndex:0}} />
         <div style={{position:"absolute",inset:0,background:"linear-gradient(180deg, rgba(6,9,26,0.5) 0%, rgba(6,9,26,0.95) 100%)",zIndex:0}} />
       <div style={{position:"relative",zIndex:1,textAlign:"center",padding:"80px 24px 64px",maxWidth:760,margin:"0 auto"}}>
         <SectionLabel>Associazione Studentesca · Bocconi</SectionLabel>
